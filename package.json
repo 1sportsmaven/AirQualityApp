@@ -1,0 +1,28 @@
+{
+    "name": "airqualityapp",
+    "version": "1.0.0",
+    "description": "Air Quality Application",
+    "main": "server.js",
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1",
+        "start": "node server.js"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/samsonmarikwa/AirQualityApp.git"
+    },
+    "author": "Team Shanghai",
+    "license": "ISC",
+    "dependencies": {
+        "express": "*",
+        "body-parser": "*",
+        "mysql2": "*",
+        "sequelize": "*",
+        "airnow": "*",
+        "nodemailer": "*"
+    },
+    "bugs": {
+        "url": "https://github.com/samsonmarikwa/AirQualityApp/issues"
+    },
+    "homepage": "https://github.com/samsonmarikwa/AirQualityApp#readme"
+}
