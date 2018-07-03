@@ -14,12 +14,16 @@
     "author": "Team Shanghai",
     "license": "ISC",
     "dependencies": {
-        "express": "*",
-        "body-parser": "*",
-        "mysql2": "*",
-        "sequelize": "*",
         "airnow": "*",
-        "nodemailer": "*"
+        "body-parser": "*",
+        "dotenv": "^6.0.0",
+        "express": "*",
+        "express-handlebars": "^3.0.0",
+        "moment": "^2.22.2",
+        "mysql2": "*",
+        "nodemailer": "*",
+        "sequelize": "*",
+        "path": "*"
     },
     "bugs": {
         "url": "https://github.com/samsonmarikwa/AirQualityApp/issues"
