@@ -4,6 +4,10 @@
 
 // Dependencies
 // =============================================================
+var airnow = require('airnow');
+var api = process.env.NowAirAPI_KEY;
+var client = airnow({ apiKey: api });
+
 var Sequelize = require("sequelize");
 var Op = Sequelize.Op;
 
@@ -32,9 +36,9 @@ module.exports = function(app) {
         });
     });
 
+
     // POST route for saving a new user
     app.post("/api/users", function(req, res) {
-        console.log(req.body);
         db.User.create({
             username: req.body.username,
             password: req.body.password,
@@ -66,6 +70,7 @@ module.exports = function(app) {
 
     // PUT route for updating users
     app.put("/api/users", function(req, res) {
+        console.log(req.body);
         db.User.update(req.body, {
             returning: true,
             where: {
@@ -91,28 +96,55 @@ module.exports = function(app) {
                 }
             }
         }).then(function(result) {
-            console.log(result);
-            // to validate the user password
+            // validate user account and if user password correct
             var userData = {};
-            if (req.body.password === result.password) {
-                userData = {
-                    correctPass: true,
-                    username: result.username,
-                    password: result.password,
-                    firstname: result.firstname,
-                    lastname: result.lastname,
-                    city: result.city,
-                    zipcode: result.zipcode,
-                    email: result.email,
-                    dailyUpdates: result.dailyUpdates
-                };
+            if (result !== null) {
+                if (req.body.password === result.password) {
+                    userData = {
+                        correctPass: true,
+                        username: result.username
+                    };
+                } else {
+                    userData = {
+                        correctPass: false
+                    };
+                }
             } else {
                 userData = {
-                    correctPass: false
-                };
+                    noAccount: true
+                }
             }
 
             res.json(userData);
+        });
+    });
+
+    //retrieve forecast data
+    app.post("/api/forecast", function(req, res) {
+        var distance = 100;
+        var options = {
+            zipCode: req.body.zipcode,
+            distance: distance,
+            format: "application/json"
+        };
+
+        // get the current observations by zip
+        client.getObservationsByZipCode(options, function(err, observations) {
+            var result = {};
+            if (err) {
+                result = {
+                    success: false,
+                    message: "An error calling getObservationsByZipCode: ",
+                    error: err
+                }
+
+            } else {
+                result = {
+                    success: true,
+                    message: observations
+                }
+            }
+            res.json(result);
         });
     });
 

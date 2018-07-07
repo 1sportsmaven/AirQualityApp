@@ -13,6 +13,15 @@ h1 {
     font-size: 30px;
 }
 
+.nvabar {
+    height: 64px;
+}
+
+#welcome {
+    margin-top: 10px;
+    font-size: 20px;
+}
+
 header {
     margin: 15px;
 }
@@ -23,7 +32,8 @@ header {
 
 #submit,
 .newbtns,
-#loginBtn {
+#loginBtn,
+#profile {
     font-weight: 700;
     background-color: #009999;
     width: 180px;
@@ -46,14 +56,16 @@ header {
 
 #submit:hover,
 .newbtns:hover,
-#loginBtn:hover {
+#loginBtn:hover,
+#profile:hover {
     background-color: #004d80;
     color: white;
 }
 
 #submit:active,
 .newbtns:active,
-#loginBtn:active {
+#loginBtn:active,
+#profile:active {
     background-color: #009999;
     box-shadow: 0 5px #666;
     transform: translateY(10px);
@@ -76,8 +88,17 @@ label {
 #city,
 #zipcode,
 #email,
-select {
-    width: 70%;
+select,
+#dateobserved,
+#hourobserved,
+#localtimezone,
+#reportingarea,
+#statecode,
+#parameter,
+#airquality,
+#category,
+#categoryname {
+    width: 75%;
     height: 50px;
     font-family: Cursive, Helvetica, 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif, monospace;
     line-height: 1.8;
@@ -117,7 +138,8 @@ footer {
 @media screen and (max-width: 575px) {
     #burger_name,
     #submit,
-    .newbtns {
+    .newbtns,
+    #profile {
         width: 100%;
     }
 }

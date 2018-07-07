@@ -10,14 +10,16 @@ module.exports = (app) => {
     // to allow the user to interact with the server.
     // Dependencies
 
+    app.get('/', (req, res) => {
+        res.sendFile(path.join(__dirname, "../public/html/index.html"));
+    });
+
     app.get('/signup', (req, res) => {
         res.sendFile(path.join(__dirname, "../public/html/signup.html"));
     });
 
-
-    app.get('/', (req, res) => {
-        console.log("index - What the fuck");
-        res.sendFile(path.join(__dirname, "../public/html/index.html"));
+    app.get('/forecast', (req, res) => {
+        res.sendFile(path.join(__dirname, "../public/html/forecast.html"));
     });
 
 };

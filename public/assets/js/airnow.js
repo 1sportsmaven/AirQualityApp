@@ -1,9 +1,55 @@
 // Make sure we wait to attach our handlers until the DOM is fully loaded
 $(function() {
     $("#logout").tooltip({ title: "Logout", delay: { show: 500, hide: 200 } });
-    var username = "";
-    var userData = [];
 
+    var username = localStorage.getItem("username");
+
+    $.get("/api/users/" + username, function(data) {
+
+        // populate form with user data
+        $("#username").val(data.username);
+        $("#password").val(data.password);
+        $("#passconfirm").val(data.password);
+        $("#firstname").val(data.firstname);
+        $("#lastname").val(data.lastname);
+        $("#city").val(data.city);
+        $("#zipcode").val(data.zipcode);
+        $("#email").val(data.email);
+        $("#welcome").text("Welcome, " + data.firstname + " " + data.lastname);
+        if (data.dailyupdates) {
+            $("#dailyupdates").val("1");
+        } else {
+            $("#dailyupdates").val("0");
+        }
+
+        // add new elements to the form
+        $("#page-title").text("User Profile");
+        $("#submit").hide();
+
+        $("#username").prop("readonly", true);
+
+        var btn0 = $("<button>");
+        btn0.text("Amend");
+        btn0.addClass("newbtns");
+        $("#button-area").append(btn0);
+
+        var btn1 = $("<button>");
+        btn1.text("Unsubscribe");
+        btn1.addClass("newbtns");
+        $("#button-area").append(btn1);
+
+        var btn2 = $("<button>");
+        btn2.text("Forecast");
+        btn2.addClass("newbtns");
+        $("#button-area").append(btn2);
+
+        $("#instr").text("Click Amend to change user profile, Click Logout to Sign off, Click Forecast to get air forecast");
+
+    });
+
+    /*
+    signin
+    */
 
     $("#loginBtn").on("click", function(event) {
         event.preventDefault();
@@ -18,27 +64,23 @@ $(function() {
             data: login
         }).then(function(result) {
             console.log(result);
-            if (result.correctPass) {
-                // construct webpage
-
-                // load signup html form
-                $.ajax("/signup", { type: "GET" }).then(populateUserData);
-
+            if (result.noAccount) {
+                userMessage("Login Failure", "User Account Not Known");
             } else {
-                userMessage("Login Failure", "Please check your CAPS lock and enter your correct account credentials");
+                if (result.correctPass) {
+                    // save username to localstorage and load signup html form
+                    localStorage.setItem("username", result.username);
+                    location = "/signup/";
+
+                } else {
+                    userMessage("Login Failure", "Please check your CAPS lock and enter your correct account credentials");
+                }
             }
 
         });
 
     });
 
-    function populateUserData() {
-
-        console.log("Construct webpage");
-        $(".signin").detach();
-        $(".signinfooter").detach();
-
-    }
 
     $("#submit").on("click", function(event) {
         event.preventDefault();
@@ -49,7 +91,6 @@ $(function() {
                 var newUser = {
                     username: $("#username").val().trim(),
                     password: $("#password").val().trim(),
-                    passconfirm: $("#passconfirm").val().trim(),
                     firstname: $("#firstname").val().trim(),
                     lastname: $("#lastname").val().trim(),
                     city: $("#city").val().trim(),
@@ -67,7 +108,7 @@ $(function() {
                     } else {
                         console.log(result);
                         userMessage("Success", "Your account created successfully");
-                        $("#user").text(" " + result.firstname + " " + result.lastname);
+                        $("#welcome").text("Welcome, " + result.firstname + " " + result.lastname);
                         $("#page-title").text("User Profile");
                         $("#submit").hide();
 
@@ -119,7 +160,7 @@ $(function() {
                 }
             case "Forecast":
                 {
-                    alert("Forecast");
+                    forecast();
                     break;
                 }
         }
@@ -134,7 +175,6 @@ $(function() {
                 var newUser = {
                     username: $("#username").val().trim(),
                     password: $("#password").val().trim(),
-                    passconfirm: $("#passconfirm").val().trim(),
                     firstname: $("#firstname").val().trim(),
                     lastname: $("#lastname").val().trim(),
                     city: $("#city").val().trim(),
@@ -163,7 +203,6 @@ $(function() {
         }).then(signUp);
     }
 
-
     var userMessage = (title, text) => {
         var div = $('<div>').html(text).dialog({
             title: title,
@@ -178,41 +217,22 @@ $(function() {
     function getUserData() {
         userMessage("Success", "Your account amended successfully");
         $.get("/api/users/" + username, function(data) {
-
-            console.log(data);
+            $("#welcome").text("Welcome, " + data.firstname + " " + data.lastname);
         });
     }
 
     function signUp() {
+        userMessage("Success", "Your account amended successfully");
         alert("Your account has been deleted");
         location = "/";
 
     }
 
+    function forecast() {
+        // save username to localstorage and load forecast html form
+        localStorage.setItem("username", username);
+        location = "/forecast";
+
+    }
+
 });
-
-/*
-function(result) {
-   console.log(result);
-   userMessage("Success", "Your account changed successfully");
-   $("#user").text(" " + result.firstname + " " + result.lastname);
-   $("#page-title").text("User Profile");
-   $("#submit").hide();
-
-   var btn0 = $("<button>");
-   btn0.text("Amend");
-   btn0.addClass("newbtns");
-   $("#button-area").append(btn0);
-
-   var btn1 = $("<button>");
-   btn1.text("Unsubscribe");
-   btn1.addClass("newbtns");
-   $("#button-area").append(btn1);
-
-   var btn2 = $("<button>");
-   btn2.text("Forecast");
-   btn2.addClass("newbtns");
-   $("#button-area").append(btn2);
-
-   $("#instr").text("Click Amend to change user profile, Click Logout to Sign off, Click Forecast to get air forecast");
-   */
