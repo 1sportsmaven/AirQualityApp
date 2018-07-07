@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <title>Air Quality App</title>
+</head>
+
+<body>
+    <div class="container">
+
+        <div class="jumbotron">
+            <div class="page-header">
+                <h1>Air Aware</h1>
+            </div>
+        </div>
+
+        <div class="col-xs-4">
+            <div class="form-group">
+                <label for="username">Username:</label>
+                <input type="username" class="form-control" id="username">
+            </div>
+            <div class="form-group">
+                <label for="password">Password:</label>
+                <input type="password" class="form-control" id="password">
+            </div>
+            <div class="form-group">
+                <label for="firstname">First Name:</label>
+                <input type="firstname" class="form-control" id="firstname">
+            </div>
+            <div class="form-group">
+                <label for="lastname">Last Name:</label>
+                <input type="lastname" class="form-control" id="lastname">
+            </div>
+            <div class="form-group">
+                <label for="city">City:</label>
+                <input type="city" class="form-control" id="city">
+            </div>
+            <div class="form-group">
+                <label for="zipcode">Zip Code:</label>
+                <input type="zipcode" class="form-control" id="zipcode">
+            </div>
+            <div class="form-group">
+                <label for="email">Email:</label>
+                <input type="email" class="form-control" id="email">
+            </div>
+            <div class="form-group">
+                <label for="daily-update">Daily Updates:</label>
+                <select class="form-control" id="daily-update">
+                    <option>Yes</option>
+                    <option>No</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <button type="submiit" class="btn btn-default" id="submit">Submit</button>
+            </div>
+
+
+        </div>
+        <!--End of input form column-->
+
+        <div class="col-xs-8" id="data-display">
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th>Date</th>
+                        <th>City</th>
+                        <th>State</th>
+                        <th>AQI</th>
+                        <th>AQI Category</th>
+                        <th>AQI Category Number</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td id="data-date">7-4-2018</td>
+                        <td id="data-city">Charlotte</td>
+                        <td id="data-state">NC</td>
+                        <td id="data-aqi">40</td>
+                        <td id="data-cat">Good</td>
+                        <td id="data-num">1</td>
+                    </tr>
+                </tbody>
+            </table>
+            <img src="http://theasthmafiles.org/sites/default/files/styles/panopoly_image_original/public/artifacts/media/image/aqi.jpg?itok=VI45Xe5K" class="img-rounded" alt="AQI Index Infographic" width="600" height="400">
+        </div>
+        <!--End of table display column-->
+
+    </div>
+    <!--End of container div-->
+
+    <script type="text/javascript">
+        //hides data table on load
+        $(document).ready(function() {
+            $("#data-display").hide()
+        })
+
+        //function to get current AQI Data
+        var current = function() {
+            $("#submit").on("click", function() {
+                event.preventDefault();
+                //creates var to obtain today's date
+                var today = new Date();
+                var dd = today.getDate();
+                var mm = today.getMonth() + 1;
+                var yyyy = today.getFullYear();
+                if (dd < 10) {
+                    dd = '0' + dd
+                }
+                if (mm < 10) {
+                    mm = '0' + mm
+                }
+
+                today = yyyy + '-' + mm + '-' + dd;
+                //console.log(today);
+
+                var zipcode = $("#zipcode").val();
+                //console.log(zipcode);
+
+                var key = "499782A5-5E1F-4FB9-AD2D-49D1989E9363";
+
+                var queryURL =
+                    "http://www.airnowapi.org/aq/observation/zipCode/current/?format=application/json&zipCode=" +
+                    zipcode + "&date=" + today + "&distance=25&API_KEY=" + key;
+
+                $.ajax({
+
+                        url: queryURL,
+                        method: "GET"
+
+                    })
+                    //grabs API data and fills in the table
+                    .then(function(res) {
+                        $("#data-date").html(res[0].DateObserved);
+                        $("#data-city").html(res[0].ReportingArea);
+                        $("#data-state").html(res[0].StateCode);
+                        $("data-aqi").html(res[0].AQI);
+                        $("data-cat").html(res[0].Category.Name);
+                        $("data-num").html(res[0].Category.Number);
+
+                        //displays AQI table and infographic
+                        $(document).ready(function() {
+                            $("#data-display").show();
+                        })
+                    })
+
+            })
+        }
+
+        current();
+    </script>
+</body>
+
+</html>

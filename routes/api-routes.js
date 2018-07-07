@@ -11,9 +11,15 @@ var Op = Sequelize.Op;
 var db = require("../models");
 
 // Routes
-// =============================================================
+// ============================================================
 module.exports = function(app) {
 
+    // Get route for retrieving all the users to use in mailer function
+    app.get("/api/users", function(req, res) {
+        db.User.findAll({}).then(function(result) {
+            res.json(result);
+        });
+    });
 
     // Get route for retrieving a single user
     app.get("/api/users/:username", function(req, res) {
@@ -40,6 +46,8 @@ module.exports = function(app) {
             dailyUpdates: req.body.dailyUpdates
         }).then(function(result) {
             res.json(result);
+        }).catch(function(err) {
+            res.send(err);
         });
     });
 
@@ -59,13 +67,53 @@ module.exports = function(app) {
     // PUT route for updating users
     app.put("/api/users", function(req, res) {
         db.User.update(req.body, {
+            returning: true,
+            where: {
+                username: {
+                    [Op.eq]: req.body.username
+                }
+            }
+        }).then(function([rowsUpdate, [result]]) {
+            console.log(result);
+            res.json(result);
+        }).catch(function(err) {
+            res.send(err);
+        });
+    });
+
+
+    // Post route for login
+    app.post("/api/login", function(req, res) {
+        db.User.findOne({
             where: {
                 username: {
                     [Op.eq]: req.body.username
                 }
             }
         }).then(function(result) {
-            res.json(result);
+            console.log(result);
+            // to validate the user password
+            var userData = {};
+            if (req.body.password === result.password) {
+                userData = {
+                    correctPass: true,
+                    username: result.username,
+                    password: result.password,
+                    firstname: result.firstname,
+                    lastname: result.lastname,
+                    city: result.city,
+                    zipcode: result.zipcode,
+                    email: result.email,
+                    dailyUpdates: result.dailyUpdates
+                };
+            } else {
+                userData = {
+                    correctPass: false
+                };
+            }
+
+            res.json(userData);
         });
     });
+
 };

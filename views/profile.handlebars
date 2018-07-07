@@ -1,0 +1,112 @@
+<div class="container-fluid">
+   <header>
+      <img src="/assets/img/clean_air_innovation.jpg" height="100" width="100%">
+      <h1>Air Quality Forecast</h1>
+   </header>
+
+   <nav class="navbar navbar-dark bg-dark">
+      <div class="container-fluid">
+         <div class="navbar-header">
+            <a class="navbar-brand" href="/profile">Welcome,
+               <span id="user">Firstame Lastname</span>
+            </a>
+         </div>
+
+         <ul class="nav navbar-nav navbar-right">
+            <li>
+               <a href="#">
+                  <img src="/assets/img/logout.png" height="40" width="40">
+               </a>
+            </li>
+         </ul>
+      </div>
+   </nav>
+
+   <section class="signup">
+      <form class="signup-form">
+         <fieldset>
+            <legend>User profile</legend>
+            <div class="row">
+               <div class="col-sm-6">
+                  <div class="form-group">
+                     <label for="username">Username:</label>
+                     <input type="text" id="username" name="username" size="20" maxlength="20" placeholder="username">
+                  </div>
+               </div>
+
+               <div class="col-sm-6">
+                  <div class="form-group">
+                     <label for="password">Password:</label>
+                     <input type="password" id="password" name="pasword" size="20" maxlength="20" placeholder="password">
+                  </div>
+               </div>
+            </div>
+
+
+            <div class="row">
+               <div class="col-sm-6"></div>
+               <div class="col-sm-6">
+                  <div class="form-group">
+                     <label for="passconfirm">Password confirmation: </label>
+                     <input type="password" id="passconfirm" name="passconfirm" size="20" maxlength="20" placeholder="password">
+                  </div>
+               </div>
+            </div>
+            <div class="row">
+               <div class="col-sm-6">
+                  <div class="form-group">
+                     <label for="firstname">First name:</label>
+                     <input type="text" id="firstname" name="firstname" size="40" placeholder="Firstname">
+                  </div>
+               </div>
+               <div class="col-sm-6">
+                  <div class="form-group">
+                     <label for="lastname">Last name:</label>
+                     <input type="text" id="lastname" name="lastname" size="40" placeholder="Lastname">
+                  </div>
+               </div>
+            </div>
+            <div class="row">
+               <div class="col-sm-6">
+                  <div class="form-group">
+                     <label for="city">City:</label>
+                     <input type="text" id="city" name="city" size="40" placeholder="City">
+                  </div>
+               </div>
+
+               <div class="col-sm-6">
+                  <div class="form-group">
+                     <label for="zipcode">Zip code:</label>
+                     <input type="text" id="zipcode" name="zipcode" size="5" placeholder="00000">
+                  </div>
+               </div>
+            </div>
+            <div class="row">
+               <div class="col-sm-6">
+                  <div class="form-group">
+                     <label for="email">E-Mail:</label>
+                     <input type="email" id="email" name="email" size="40">
+                  </div>
+               </div>
+               <div class="col-sm-6">
+                  <div class="form-group">
+                     <label for="dailyupdates">Daily updates: </label>
+                     <select id="dailyupdates">
+                        <option value="" disabled selected>Select your option</option>
+                        <option value="1">Yes</option>
+                        <option value="0">No</option>
+                     </select>
+                  </div>
+               </div>
+            </div>
+         </fieldset>
+         <button id="amend" type="submit">Amend</button>
+         <button id="unsubscribe" type="submit">Unsubscribe</button>
+         <button id="forecast" type="submit">Forecast</button>
+      </form>
+   </section>
+   <footer>
+      <p>Click Submit to create an account to access air quality forecasts</p>
+   </footer>
+
+</div>
