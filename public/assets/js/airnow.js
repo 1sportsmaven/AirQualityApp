@@ -20,10 +20,8 @@ $(function() {
             console.log(result);
             if (result.correctPass) {
                 // construct webpage
-                $(".signin").detach();
-                $(".signinfooter").detach();
 
-                // load sign-up handlebar form
+                // load signup html form
                 $.ajax("/signup", { type: "GET" }).then(populateUserData);
 
             } else {
@@ -37,6 +35,8 @@ $(function() {
     function populateUserData() {
 
         console.log("Construct webpage");
+        $(".signin").detach();
+        $(".signinfooter").detach();
 
     }
 
