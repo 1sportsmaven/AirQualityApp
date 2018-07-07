@@ -12,7 +12,7 @@ var sendEmails = require("./controllers/mailer");
 
 // generate e-mails after a set interval. We have arbitraly set this to 60000 milliseconds, which is 1min.
 setInterval(function() {
-    //   sendEmails(usersData);
+    sendEmails(usersData);
     usersData = populateUsers();
 }, 60000)
 
