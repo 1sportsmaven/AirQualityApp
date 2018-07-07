@@ -22,8 +22,9 @@
         "moment": "^2.22.2",
         "mysql2": "*",
         "nodemailer": "*",
-        "sequelize": "*",
-        "path": "*"
+        "path": "*",
+        "request": "^2.87.0",
+        "sequelize": "*"
     },
     "bugs": {
         "url": "https://github.com/samsonmarikwa/AirQualityApp/issues"

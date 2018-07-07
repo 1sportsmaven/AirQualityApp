@@ -1,0 +1,121 @@
+<div class="container-fluid">
+   <header>
+      <img src="/assets/img/clean_air_innovation.jpg" height="100" width="100%">
+      <h1>Air Quality Forecast</h1>
+   </header>
+
+   <nav class="navbar navbar-dark bg-dark">
+      <div class="container-fluid">
+         <div class="navbar-header">
+            <a class="navbar-brand" href="/profile">Welcome,
+               <span id="user">Firstame Lastname</span>
+            </a>
+         </div>
+
+         <ul class="nav navbar-nav navbar-right">
+            <li>
+               <a href="#">
+                  <img src="/assets/img/logout.png" height="40" width="40">
+               </a>
+            </li>
+         </ul>
+      </div>
+   </nav>
+
+   <div class="panel panel-primary">
+      <div class="panel-heading">Air Quality Now</div>
+      <div class="panel-body">
+
+         <div class="row">
+            <div class="col-sm-6">
+               <p>Date Observed:
+                  <span id="date-obseved"></span>
+               </p>
+            </div>
+
+            <div class="col-sm-6">
+               <p>Hour Observed:
+                  <span id="hour-obseved"></span>
+               </p>
+            </div>
+         </div>
+
+         <div class="row">
+            <div class="col-sm-6">
+               <p>Local Time Zone:
+                  <span id="timezone"></span>
+               </p>
+            </div>
+
+            <div class="col-sm-6">
+               <p>Reporting Area:
+                  <span id="reporting-area"></span>
+               </p>
+            </div>
+         </div>
+
+         <div class="row">
+            <div class="col-sm-6">
+               <p>State Code:
+                  <span id="state-code"></span>
+               </p>
+            </div>
+
+            <div class="col-sm-6">
+               <p>Parameter Name:
+                  <span id="parameter-name"></span>
+               </p>
+            </div>
+         </div>
+
+         <div class="row">
+            <div class="col-sm-6">
+               <p>Air Quality Index:
+                  <span id="airquality"></span>
+               </p>
+            </div>
+
+            <div class="col-sm-6">
+               <p>Category:
+                  <span id="category"></span>
+               </p>
+            </div>
+         </div>
+
+         <div class="row">
+            <div class="col-sm-6">
+            </div>
+
+            <div class="col-sm-6">
+               <p>Category Name:
+                  <span id="category-name"></span>
+               </p>
+            </div>
+
+         </div>
+      </div>
+   </div>
+
+   <div class="panel panel-primary">
+      <div class="panel-heading">7 Day Forecast</div>
+      <div class="panel-body">
+         <p>Seven day forecast area</p>
+      </div>
+
+   </div>
+
+
+</div>
+
+Forecast by zip code
+put code in js file
+http://www.airnowapi.org/aq/forecast/zipCode/?format=application/json&zipCode=28205&date=2018-07-05&distance=100&API_KEY=5881BD33-C48F-4A96-B591-83B781B4709E
+
+[{"DateIssue":"2018-07-04 ","DateForecast":"2018-07-05 ","ReportingArea":"Charlotte","StateCode":"NC","Latitude":35.227,"Longitude":-80.843,"ParameterName":"O3","AQI":43,"Category":{"Number":1,"Name":"Good"},"ActionDay":false,"Discussion":""},{"DateIssue":"2018-07-04 ","DateForecast":"2018-07-05 ","ReportingArea":"Charlotte","StateCode":"NC","Latitude":35.227,"Longitude":-80.843,"ParameterName":"PM2.5","AQI":50,"Category":{"Number":1,"Name":"Good"},"ActionDay":false,"Discussion":""},{"DateIssue":"2018-07-04 ","DateForecast":"2018-07-06 ","ReportingArea":"Charlotte","StateCode":"NC","Latitude":35.227,"Longitude":-80.843,"ParameterName":"O3","AQI":-1,"Category":{"Number":1,"Name":"Good"},"ActionDay":false,"Discussion":""},{"DateIssue":"2018-07-04 ","DateForecast":"2018-07-06 ","ReportingArea":"Charlotte","StateCode":"NC","Latitude":35.227,"Longitude":-80.843,"ParameterName":"PM2.5","AQI":-1,"Category":{"Number":1,"Name":"Good"},"ActionDay":false,"Discussion":""},{"DateIssue":"2018-07-04 ","DateForecast":"2018-07-07 ","ReportingArea":"Charlotte","StateCode":"NC","Latitude":35.227,"Longitude":-80.843,"ParameterName":"O3","AQI":-1,"Category":{"Number":1,"Name":"Good"},"ActionDay":false,"Discussion":""},{"DateIssue":"2018-07-04 ","DateForecast":"2018-07-07 ","ReportingArea":"Charlotte","StateCode":"NC","Latitude":35.227,"Longitude":-80.843,"ParameterName":"PM2.5","AQI":-1,"Category":{"Number":1,"Name":"Good"},"ActionDay":false,"Discussion":""}]
+
+
+Current Observation By Zip Code
+http://www.airnowapi.org/aq/observation/zipCode/current/?format=application/json&zipCode=28205&distance=100&API_KEY=5881BD33-C48F-4A96-B591-83B781B4709E
+
+Output
+[{"DateObserved":"2018-07-05 ","HourObserved":6,"LocalTimeZone":"EST","ReportingArea":"Charlotte","StateCode":"NC","Latitude":35.227,"Longitude":-80.843,"ParameterName":"O3","AQI":15,"Category":{"Number":1,"Name":"Good"}},{"DateObserved":"2018-07-05 ","HourObserved":6,"LocalTimeZone":"EST","ReportingArea":"Charlotte","StateCode":"NC","Latitude":35.227,"Longitude":-80.843,"ParameterName":"PM2.5","AQI":30,"Category":{"Number":1,"Name":"Good"}}]
